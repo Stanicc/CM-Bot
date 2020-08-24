@@ -8,4 +8,4 @@
 
 ## 🎓 Authors
 
-* [Stanicc](https://github.com/Stanicc) - All
+* [Stanicc](https://github.com/Stanicc)
