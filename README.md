@@ -3,3 +3,9 @@
 <p align="center">
     A Discord bot designed to help services servers<br><br>
 </p>
+
+## 🔧 Still working
+
+## 🎓 Authors
+
+* [Stanicc](https://github.com/Stanicc) - All
