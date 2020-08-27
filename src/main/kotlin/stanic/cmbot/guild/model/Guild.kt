@@ -1,25 +1,22 @@
 package stanic.cmbot.guild.model
 
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
-import net.dv8tion.jda.api.entities.Guild
-import stanic.cmbot.guild.impl.GuildImpl
+import kotlinx.serialization.Transient
+import stanic.cmbot.Main
 import stanic.cmbot.guild.ticket.model.Ticket
 import stanic.cmbot.service.LicenseManager
-import java.io.File
 
 @Serializable
-data class Guild(
-    @Contextual val file: File,
-    private val guild: Guild
-) : GuildImpl {
+class Guild(
+    val fileLocation: String? = null,
+    val id: String
+) {
 
-    val tickets = ArrayList<@Contextual Ticket>()
+    @Transient var tickets = ArrayList<Ticket>()
     val users = ArrayList<String>()
 
-    override val id = guild.id
-    override val license = LicenseManager().getLicense(id)
+    val license = LicenseManager().getLicense(id)
 
-    fun get() = guild
+    fun get() = Main.INSTANCE.jda.getGuildById(id)
 
 }

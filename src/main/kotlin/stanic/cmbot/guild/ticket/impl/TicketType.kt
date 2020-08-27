@@ -2,8 +2,8 @@ package stanic.cmbot.guild.ticket.impl
 
 import stanic.cmbot.guild.ticket.impl.types.*
 
-enum class TicketImpl constructor(
-    val type: TicketType
+enum class TicketType constructor(
+    val type: TicketImpl
 ) {
 
     SUPPORT(Support()),
@@ -20,12 +20,12 @@ enum class TicketImpl constructor(
     fun getTypeName() = type.typeName
 
     companion object {
-        fun getFromString(type: String): TicketImpl? = values().filter { it.type.typeName == type }.getOrNull(0)
+        fun getFromString(type: String): TicketType? = values().filter { it.type.typeName == type }.getOrNull(0)
     }
 
 }
 
-interface TicketType {
+interface TicketImpl {
     val typeName: String
 
     /**

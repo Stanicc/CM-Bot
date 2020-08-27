@@ -1,12 +1,14 @@
 package stanic.cmbot.guild.ticket.model
 
 import stanic.cmbot.guild.model.Guild
-import stanic.cmbot.guild.ticket.impl.TicketImpl
+import stanic.cmbot.guild.ticket.impl.TicketType
+import kotlinx.serialization.Serializable
 
+@Serializable
 class Ticket(
-    val type: TicketImpl,
+    val type: TicketType,
     val guild: Guild,
-    val id: Int,
+    val id: String,
     val owner: String,
     val members: ArrayList<Members>
 ) {
@@ -25,6 +27,7 @@ class Ticket(
         //Delete ticket
     }
 
+    @Serializable
     class Members(
         val manager: Boolean,
         val id: String

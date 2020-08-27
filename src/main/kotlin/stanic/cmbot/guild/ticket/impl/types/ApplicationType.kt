@@ -1,8 +1,8 @@
 package stanic.cmbot.guild.ticket.impl.types
 
-import stanic.cmbot.guild.ticket.impl.TicketType
+import stanic.cmbot.guild.ticket.impl.TicketImpl
 
-class Application : TicketType {
+class Application : TicketImpl {
     override val typeName = "Application"
     override val category = "application"
 }
