@@ -1,6 +1,9 @@
 package stanic.cmbot.service
 
-class License(
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class License(
     val license: String,
     val expire: Boolean,
     val expireTime: Long? = null

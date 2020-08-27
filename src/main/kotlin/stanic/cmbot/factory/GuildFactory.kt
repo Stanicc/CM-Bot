@@ -1,5 +1,6 @@
 package stanic.cmbot.factory
 
+import stanic.cmbot.database.loadGuilds
 import stanic.cmbot.guild.model.Guild
 
 class GuildFactory {
@@ -10,8 +11,10 @@ class GuildFactory {
 
     fun start() {
         INSTANCE = this
+
+        guilds = loadGuilds()
     }
 
-    val guilds = HashMap<String, Guild>()
+    lateinit var guilds: HashMap<String, Guild>
 
 }
