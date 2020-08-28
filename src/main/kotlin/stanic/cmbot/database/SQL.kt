@@ -28,23 +28,6 @@ fun save(guildModel: Guild) = transaction {
     }
 }
 
-fun loadGuilds(): HashMap<String, Guild> {
-    val guilds = HashMap<String, Guild>()
-
-    transaction {
-        SchemaUtils.create(GuildTable)
-
-        GuildTable.selectAll().map {
-            val guild = Json.decodeFromString(Guild.serializer(), it[GuildTable.guild])
-            guild.tickets = Json.decodeFromString(it[GuildTable.tickets])
-
-            guilds[it[GuildTable.id]] = guild
-        }
-    }
-
-    return guilds
-}
-
 fun saveAll() = transaction {
     SchemaUtils.create(GuildTable)
 
@@ -62,4 +45,43 @@ fun saveAll() = transaction {
             it[tickets] = Json.encodeToString(guildModel.tickets)
         }
     }
+}
+
+fun loadAll(): HashMap<String, Guild> {
+    val guilds = HashMap<String, Guild>()
+
+    transaction {
+        SchemaUtils.create(GuildTable)
+
+        GuildTable.selectAll().map {
+            val guild = Json.decodeFromString(Guild.serializer(), it[GuildTable.guild])
+            guild.tickets = Json.decodeFromString(it[GuildTable.tickets])
+
+            guilds[it[GuildTable.id]] = guild
+        }
+    }
+
+    return guilds
+}
+
+fun load(id: String): Guild? {
+    var guild: Guild? = null
+
+    transaction {
+        SchemaUtils.create(GuildTable)
+
+        val guildSelected = GuildTable.select { GuildTable.id eq id }.singleOrNull()
+        if (guildSelected != null) {
+            guild = Json.decodeFromString(Guild.serializer(), guildSelected[GuildTable.guild])
+            guild!!.tickets = Json.decodeFromString(guildSelected[GuildTable.tickets])
+        }
+    }
+
+    return guild
+}
+
+fun delete(guild: String) = transaction {
+    SchemaUtils.create(GuildTable)
+
+    GuildTable.deleteWhere { GuildTable.id eq guild }
 }
