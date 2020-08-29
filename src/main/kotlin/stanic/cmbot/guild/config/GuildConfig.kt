@@ -1,7 +1,9 @@
 package stanic.cmbot.guild.config
 
+import org.json.JSONObject
 import stanic.cmbot.guild.model.Guild
 import java.io.File
+import java.io.InputStream
 
 class GuildConfig {
 
@@ -16,6 +18,11 @@ class GuildConfig {
 
         guild.fileLocation = "${guild.id}-config.json"
         return file
+    }
+
+    fun readConfigFile(inputStream: InputStream): JSONObject {
+        val json: String = inputStream.bufferedReader().use { it.readText() }
+        return JSONObject(json)
     }
 
 }
