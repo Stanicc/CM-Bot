@@ -7,7 +7,7 @@ import stanic.cmbot.guild.ticket.model.Ticket
 
 @Serializable
 class Guild(
-    val fileLocation: String? = null,
+    var fileLocation: String? = null,
     val id: String
 ) {
 

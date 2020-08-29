@@ -5,6 +5,7 @@ import stanic.cmbot.database.load
 import stanic.cmbot.database.save
 import stanic.cmbot.factory.GuildFactory
 import stanic.cmbot.guild.model.Guild
+import java.io.File
 
 class GuildManager {
 
@@ -13,6 +14,8 @@ class GuildManager {
         .stream()
         .filter { it.id == id }
         .findFirst().orElse(null)
+
+    fun getGuildFile(guild: Guild): File = File("config", getGuildByID(guild.id)!!.fileLocation!!)
 
     fun activeGuild(id: String): Boolean {
         if (getGuildByID(id) != null) return false

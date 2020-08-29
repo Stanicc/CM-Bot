@@ -12,17 +12,14 @@ import kotlinx.coroutines.withTimeoutOrNull
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent
 import stanic.cmbot.Main
-import stanic.cmbot.database.save
-import stanic.cmbot.guild.model.Guild
-import stanic.cmbot.guild.ticket.impl.TicketType
-import stanic.cmbot.guild.ticket.model.Ticket
 import stanic.cmbot.utils.await
 
 fun CommandHolder.registerHelpCommand() = command("help") {
-    val helpMessage = channel.sendMessage(EmbedBuilder()
-        .setTitle("Help")
-        .setDescription("Click in ✅")
-        .build()
+    val helpMessage = channel.sendMessage(
+        EmbedBuilder()
+            .setTitle("Help")
+            .setDescription("Click in ✅")
+            .build()
     ).await()
     helpMessage.addReaction("✅").await()
 
