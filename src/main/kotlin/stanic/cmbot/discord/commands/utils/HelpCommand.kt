@@ -4,6 +4,7 @@ import br.com.devsrsouza.jda.command.*
 import br.com.devsrsouza.jda.command.utils.on
 import club.minnced.jda.reactor.on
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.future.await
 import kotlinx.coroutines.reactive.asFlow
@@ -18,15 +19,16 @@ fun CommandHolder.registerHelpCommand() = command("help") {
     val helpMessage = channel.sendMessage(
         EmbedBuilder()
             .setTitle("Help")
-            .setDescription("Click in ✅")
+            .setDescription("**Config** \nClick in \uD83D\uDD27 \n\n **Management** \nCommands here... \n\n**About** \nAbout here...")
+            .setFooter("CM-Bot", jda.selfUser.avatarUrl)
             .build()
     ).await()
-    helpMessage.addReaction("✅").await()
+    helpMessage.addReaction("\uD83D\uDD27").await()
 
     setup {
         on<GuildMessageReactionAddEvent>().asFlow()
             .filter { it.messageIdLong == helpMessage.idLong }
-            .filterNot { it.reactionEmote.name == "✅" }
+            .filterNot { it.reactionEmote.name == "\uD83D\uDD27" }
             .onEach { it.reaction.removeReaction(it.user).submit().await() }
             .launchIn(GlobalScope)
     }
@@ -40,7 +42,16 @@ fun CommandHolder.registerHelpCommand() = command("help") {
         Main.INSTANCE.manager.on<GuildMessageReactionAddEvent>()
             .filter { it.messageIdLong == helpMessage.idLong }
             .filter { !it.user.isBot }
-            .filter { it.reactionEmote.name == "✅" }
+            .filter { it.reactionEmote.name == "\uD83D\uDD27" }
             .awaitFirst()
     } ?: fail { println("fail") }
+
+    helpMessage.editMessage(EmbedBuilder()
+        .setTitle("Help | Config")
+        .setDescription("Config here...")
+        .setFooter("CM-Bot", jda.selfUser.avatarUrl)
+        .build()).queue()
+
+    delay(3000)
+    println("foi")
 }
