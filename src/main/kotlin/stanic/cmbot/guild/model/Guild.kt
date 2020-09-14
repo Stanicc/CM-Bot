@@ -16,6 +16,6 @@ class Guild(
 
     var enabled = true
 
-    fun get() = Main.INSTANCE.jda.getGuildById(id)
+    fun get() = Main.INSTANCE.jda.getGuildById(id)!!
 
 }
